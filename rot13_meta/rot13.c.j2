@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+char *stream;
+
+void rot13()
+{
+    switch (*stream) {
+{% for chr_i, chr_j in rot13_table.items() %}
+    case '{{ chr_i }}':
+        *stream++ = '{{ chr_j }}';
+        return;
+{% endfor %}
+    default:
+        *stream++;
+        return;
+    }
+}
+
+int main(int argc, char **argv)
+{
+    char source[1024];
+    scanf("%s", source);
+
+    stream = source;
+    while (*stream) {
+        rot13();
+    }
+
+    printf(source);
+
+    return 0;
+}
