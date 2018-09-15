@@ -1,3 +1,4 @@
+from inspect import currentframe, getouterframes
 from tempfile import TemporaryFile
 import time
 import traceback
@@ -66,7 +67,7 @@ def run_specs(locals_):
 
         tick = time.time()
         for example in examples.keys():
-            print_t(f' - {example.__name__.replace("it_", "", 1)}', end=' ')
+            print_t(f' - {example.__name__.replace("it_", "", 1).replace("_", " ")}', end=' ')
             try:
                 example()
             except Exception as e:
@@ -111,3 +112,9 @@ def run_specs(locals_):
           f'{len(failures)} failure{"s" if len(failures) > 1 else ""}',
           end='')
     print(ANSI_RESET)
+
+
+outer_locals = getouterframes(currentframe())[-1].frame.f_locals
+outer_locals['expect'] = expect
+
+run_specs(outer_locals)

@@ -1,6 +1,3 @@
-from salgadospec import expect, run_specs
-
-
 def it_can_be_trivially_correct():
     expect(1+2).to_be == 3
 
@@ -20,5 +17,4 @@ def it_can_fail_more():
     except:
         1/0
 
-
-run_specs(locals())
+import salgadospec
