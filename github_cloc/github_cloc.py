@@ -30,11 +30,12 @@ except FileExistsError:
 
 for repo in repos:
     subprocess.run(('git', 'clone',
-                    repo['clone_url'], user_directory/repo['name']))
+                    repo['clone_url'], str(user_directory/repo['name'])))
     print()
 
 for jupyter_notebook in user_directory.glob("**/*.ipynb"):
-    subprocess.run(('jupyter-nbconvert', '--to', 'script', jupyter_notebook))
+    subprocess.run(('jupyter-nbconvert', '--to', 'script',
+                    str(jupyter_notebook)))
     print()
 
-subprocess.run(('cloc', user_directory))
+subprocess.run(('cloc', str(user_directory)))
